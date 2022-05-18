@@ -20,7 +20,6 @@ body *:before {
 #gantt_table tr,
 #gantt_table th {
   border-collapse: collapse;
-  border: 1px solid #000;
 }
 
 #gantt_table tr:not(.table_input) td,
@@ -38,6 +37,10 @@ body *:before {
   font-size: 20px;
 }
 
+#gantt_table .table_heading > td {
+  border-bottom: 1px solid rgba(143, 143, 143, 0.514);
+}
+
 #gantt_table tr.table_input td input {
   border: 0;
   outline: 0;
@@ -51,7 +54,7 @@ body *:before {
   border-bottom: 1px dashed #000;
 }
 
-#gantt_table .btn {
+.btn {
   height: 40px;
   color: #fff;
   border-radius: 5px;
@@ -78,8 +81,8 @@ body *:before {
           align-items: center;
 }
 
-#gantt_table .add_btn,
-#gantt_table .edit_btn {
+.add_btn,
+.close_btn {
   border: none;
   background: #fb2175;
   background: -webkit-gradient(linear, left bottom, left top, from(#fb2175), to(#ea4c89));
@@ -88,14 +91,14 @@ body *:before {
   overflow: hidden;
 }
 
-#gantt_table .add_btn:hover,
-#gantt_table .edit_btn:hover {
+.add_btn:hover,
+.close_btn:hover {
   text-decoration: none;
   color: #fff;
 }
 
-#gantt_table .add_btn:before,
-#gantt_table .edit_btn:before {
+.add_btn:before,
+.close_btn:before {
   position: absolute;
   content: "";
   display: inline-block;
@@ -108,13 +111,13 @@ body *:before {
           animation: shiny-btn1 3s ease-in-out infinite;
 }
 
-#gantt_table .add_btn:hover,
-#gantt_table .edit_btn:hover {
-  opacity: 0.7;
+.add_btn:hover,
+.close_btn:hover {
+  opacity: 0.8;
 }
 
-#gantt_table .add_btn:active,
-#gantt_table .edit_btn:active {
+.add_btn:active,
+.close_btn:active {
   -webkit-box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.3), -4px -4px 6px 0 rgba(116, 125, 136, 0.2), inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2), inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.3), -4px -4px 6px 0 rgba(116, 125, 136, 0.2), inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2), inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
 }
@@ -165,9 +168,127 @@ body *:before {
   }
 }
 
-#gantt_table .edit_btn {
+.add_btn img,
+.close_btn img {
+  height: 100%;
+}
+
+.close_btn {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+}
+
+.add_btn {
+  position: fixed;
+  right: 30px;
+  z-index: 10;
+  bottom: 30px;
+  height: 60px;
+  width: 60px;
+  padding: 15px;
+  border-radius: 15px;
   background: #5021fb;
   background: -webkit-gradient(linear, left bottom, left top, from(#2125fb), to(#644cea));
   background: linear-gradient(0deg, #2125fb 0%, #644cea 100%);
+}
+
+.add_btn img {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.add_btn:before {
+  -webkit-animation-delay: 1500ms;
+          animation-delay: 1500ms;
+}
+
+.addmodal {
+  position: fixed;
+  inset: 0;
+  background: #00000033;
+  z-index: 10;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.addmodal .modal_main {
+  background: #fff;
+  width: 300px;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.addmodal .modal_main .modal_header {
+  font-size: 30px;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.addmodal .modal_main label {
+  font-size: 15px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.addmodal .modal_main label input {
+  margin-top: 5px;
+  padding: 10px 5px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #00000033;
+}
+
+.addmodal .modal_main label input:focus-visible {
+  outline: 0;
+}
+
+.addmodal .actions_btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.addmodal .actions_btn .close_btn {
+  padding: 10px;
+  height: 50px;
+  width: 50px;
+}
+
+.addmodal .actions_btn .close_btn.disabled {
+  cursor: no-drop;
+  opacity: 0.5;
+}
+
+.addmodal .actions_btn .close_btn.disabled:before {
+  -webkit-animation: unset;
+          animation: unset;
+}
+
+.error {
+  font-size: 15px;
+  color: #ff0000;
+  font-weight: 500;
+  text-align: center;
+}
+
+.error[show="false"] {
+  display: none;
+}
+
+.error.input {
+  padding: 10px 5px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #00000033;
 }
 /*# sourceMappingURL=main.css.map */
