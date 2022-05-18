@@ -1,0 +1,173 @@
+body {
+  margin: 0px;
+  padding: 20px;
+}
+
+body *,
+body *:after,
+body *:before {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#gantt_table {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+#gantt_table,
+#gantt_table td,
+#gantt_table tr,
+#gantt_table th {
+  border-collapse: collapse;
+  border: 1px solid #000;
+}
+
+#gantt_table tr:not(.table_input) td,
+#gantt_table tr.table_input td:nth-child(1),
+#gantt_table tr.table_input td:nth-child(6) {
+  padding: 10px;
+}
+
+#gantt_table td:not(:first-child) {
+  text-align: center;
+}
+
+#gantt_table .table_heading {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#gantt_table tr.table_input td input {
+  border: 0;
+  outline: 0;
+  height: 100%;
+  width: 70%;
+  padding: 10px;
+  font-size: 15px;
+}
+
+#gantt_table tr.table_input td input:not([type="date"]) {
+  border-bottom: 1px dashed #000;
+}
+
+#gantt_table .btn {
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  -webkit-box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+          box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#gantt_table .add_btn,
+#gantt_table .edit_btn {
+  border: none;
+  background: #fb2175;
+  background: -webkit-gradient(linear, left bottom, left top, from(#fb2175), to(#ea4c89));
+  background: linear-gradient(0deg, #fb2175 0%, #ea4c89 100%);
+  color: #fff;
+  overflow: hidden;
+}
+
+#gantt_table .add_btn:hover,
+#gantt_table .edit_btn:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+#gantt_table .add_btn:before,
+#gantt_table .edit_btn:before {
+  position: absolute;
+  content: "";
+  display: inline-block;
+  top: -180px;
+  left: 0;
+  width: 30px;
+  height: 100%;
+  background-color: #fff;
+  -webkit-animation: shiny-btn1 3s ease-in-out infinite;
+          animation: shiny-btn1 3s ease-in-out infinite;
+}
+
+#gantt_table .add_btn:hover,
+#gantt_table .edit_btn:hover {
+  opacity: 0.7;
+}
+
+#gantt_table .add_btn:active,
+#gantt_table .edit_btn:active {
+  -webkit-box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.3), -4px -4px 6px 0 rgba(116, 125, 136, 0.2), inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2), inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.3), -4px -4px 6px 0 rgba(116, 125, 136, 0.2), inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2), inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+@-webkit-keyframes shiny-btn1 {
+  0% {
+    -webkit-transform: scale(0) rotate(45deg);
+            transform: scale(0) rotate(45deg);
+    opacity: 0;
+  }
+  80% {
+    -webkit-transform: scale(0) rotate(45deg);
+            transform: scale(0) rotate(45deg);
+    opacity: 0.5;
+  }
+  81% {
+    -webkit-transform: scale(4) rotate(45deg);
+            transform: scale(4) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(50) rotate(45deg);
+            transform: scale(50) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes shiny-btn1 {
+  0% {
+    -webkit-transform: scale(0) rotate(45deg);
+            transform: scale(0) rotate(45deg);
+    opacity: 0;
+  }
+  80% {
+    -webkit-transform: scale(0) rotate(45deg);
+            transform: scale(0) rotate(45deg);
+    opacity: 0.5;
+  }
+  81% {
+    -webkit-transform: scale(4) rotate(45deg);
+            transform: scale(4) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(50) rotate(45deg);
+            transform: scale(50) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+#gantt_table .edit_btn {
+  background: #5021fb;
+  background: -webkit-gradient(linear, left bottom, left top, from(#2125fb), to(#644cea));
+  background: linear-gradient(0deg, #2125fb 0%, #644cea 100%);
+}
+/*# sourceMappingURL=main.css.map */

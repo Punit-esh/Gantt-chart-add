@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="./style/main.css">
+    <title>Gantt Chart</title>
+</head>
+
+<body>
+    <table id="gantt_table">
+        <tr class="table_heading">
+            <td>1</td>
+            <td>
+                <!-- <div>Task Name</div> -->
+                <input type="text">
+            </td>
+            <td>
+                <!-- <div>Start Date</div> -->
+                <input type="date">
+            </td>
+            <td>
+                <!-- <div>End Date</div> -->
+                <input type="date">
+            </td>
+            <td>
+                <!-- <div>Percentage Complete</div> -->
+                <input type="text">
+            </td>
+            <td class="btn_main">
+                <div class="btn add_btn" onclick="add_datatoarr(id)">Add</div>
+                <!-- <div class="btn edit_btn">Edit</div> -->
+            </td>
+        </tr>
+
+    </table>
+    <div id="chart_div"></div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="./script.js"></script>
+
+</body>
+
+</html>
