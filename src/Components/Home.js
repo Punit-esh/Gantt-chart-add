@@ -22,8 +22,8 @@ export const Home = () => {
 
   useEffect(() => {
     if (
-      localStorage.getItem("data_arr") != null ||
-      localStorage.getItem("data_arr").length == 0
+      localStorage.getItem("data_arr") != null
+      // || localStorage.getItem("data_arr").length == 0
     ) {
       console.log("got local", JSON.parse(localStorage.getItem("data_arr")));
       let local_arr = JSON.parse(localStorage.getItem("data_arr"));
