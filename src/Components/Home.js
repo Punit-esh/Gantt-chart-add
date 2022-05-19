@@ -41,9 +41,6 @@ export const Home = () => {
       ]);
     }
   }, []);
-  // useEffect(() => {
-  //   localStorage.setItem("data_arr", JSON.stringify(data_arr));
-  // }, [data_arr]);
 
   const columns = [
     { type: "string", label: "Task ID" },
@@ -58,6 +55,7 @@ export const Home = () => {
 
   const options = {
     height: 40 + data_arr.length * 30,
+    // width: 1000,
     gantt: {
       trackHeight: 30,
     },
@@ -82,6 +80,17 @@ export const Home = () => {
 
   return (
     <div>
+      {data_arr.length == 0 ? (
+        <></>
+      ) : (
+        <Chart
+          chartType="Gantt"
+          width="100%"
+          height="50%"
+          data={[columns, ...data_arr]}
+          options={options}
+        />
+      )}
       <table id="gantt_table">
         {table_header()}
         {data_arr.length == 0 ? (
@@ -95,13 +104,13 @@ export const Home = () => {
             let temp_start_date = `
           ${new Date(el[3]).getDate()}
           /
-          ${new Date(el[3]).getMonth()}
+          ${new Date(el[3]).getMonth() + 1}
           /
           ${new Date(el[3]).getFullYear()}`;
             let temp_end_date = `
           ${new Date(el[4]).getDate()}
           /
-          ${new Date(el[4]).getMonth()}
+          ${new Date(el[4]).getMonth() + 1}
           /
           ${new Date(el[4]).getFullYear()}`;
             return (
@@ -112,8 +121,8 @@ export const Home = () => {
                 <td>{temp_end_date}</td>
                 <td>{el[6]}%</td>
                 <td class="btn_main">
-                  <div class="btn close_btn">
-                    <img src={close_img} onClick={() => delete_data_arr(i)} />
+                  <div class="btn close_btn" onClick={() => delete_data_arr(i)}>
+                    <img src={close_img} />
                   </div>
                 </td>
               </tr>
@@ -121,17 +130,6 @@ export const Home = () => {
           })
         )}
       </table>
-      {data_arr.length == 0 ? (
-        <></>
-      ) : (
-        <Chart
-          chartType="Gantt"
-          width="100%"
-          height="50%"
-          data={[columns, ...data_arr]}
-          options={options}
-        />
-      )}
       {add_modal && (
         <AddModal
           data_arr={data_arr}

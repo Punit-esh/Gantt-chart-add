@@ -2,7 +2,7 @@
     position: fixed;
     inset: 0;
     background: #00000033;
-    z-index: 10;
+    z-index: 100;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,35 +18,77 @@
             margin-bottom: 20px;
         }
         label {
-            font-size: 15px;
+            font-size: 15px !important;
             display: block;
             margin-bottom: 20px;
-            input {
-                margin-top: 5px;
+            > input {
+                height: 45px;
                 padding: 10px 5px;
+                margin-top: 5px;
                 width: 100%;
                 border-radius: 5px;
                 // border: 0;
-                border: 1px solid #00000033;
+                border: 1px solid #9d9d9d;
                 &:focus-visible {
                     outline: 0;
+                }
+                &:hover {
+                    border: 1px solid #000;
+                }
+            }
+            > form {
+                margin-top: 5px;
+                input {
+                    padding: 10px 5px;
+                    width: 100%;
+                    border-radius: 5px;
+                    // border: 0;
+                    border: 1px solid #00000033;
+
+                    &:focus-visible {
+                        outline: 0;
+                    }
                 }
             }
         }
     }
     .actions_btn {
         display: flex;
+        .btn {
+            padding-inline: 5px;
+            width: fit-content;
+        }
         // justify-content: s;
         .close_btn {
             padding: 10px;
             height: 50px;
-            width: 50px;
+            font-weight: 700;
+            // width: 50px;
+            &:first-child {
+                border: 0;
+                position: relative;
+                &:after {
+                    position: absolute;
+                    content: "";
+                    height: 1px;
+                    width: 100%;
+                    background-color: #000;
+                    bottom: 10px;
+                    left: 0;
+                }
+                &:hover {
+                    box-shadow: unset;
+                }
+            }
             &.disabled {
+                border: 2px solid #a8a8a8;
+                color: #a8a8a8;
                 cursor: no-drop;
-                opacity: 0.7;
-                filter: grayscale(70%);
                 &:before {
                     animation: unset;
+                }
+                &:hover {
+                    filter: unset;
                 }
             }
         }

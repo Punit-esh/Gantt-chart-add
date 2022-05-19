@@ -10,6 +10,7 @@ body {
 #gantt_table {
     width: 100%;
     margin-bottom: 30px;
+    margin-top: 30px;
     &,
     & td,
     & tr,
@@ -48,72 +49,79 @@ body {
     }
 }
 .btn {
+    background: rgb(255, 255, 255);
+    // background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(255, 255, 255) 100%);
     height: 40px;
     color: #fff;
     border-radius: 5px;
     padding: 5px 10px;
     font-family: "Lato", sans-serif;
     font-weight: 500;
-    background: transparent;
+    // background: transparent;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     display: inline-block;
-    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
-        4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0), 7px 7px 20px 0px rgba(0, 0, 0, 0),
+        4px 4px 5px 0px rgba(0, 0, 0, 0);
     outline: none;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #fff;
     overflow: hidden;
-    &:hover {
-        text-decoration: none;
-        color: #fff;
-    }
-    &:before {
-        position: absolute;
-        content: "";
-        display: inline-block;
-        top: -180px;
-        left: 0;
-        width: 30px;
-        height: 100%;
-        background-color: #fff;
-        animation: shiny-btn1 3s ease-in-out infinite;
-    }
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    color: #000;
+    // &:hover {
+    //     text-decoration: none;
+    //     color: #fff;
+    // }
+    // &:before {
+    //     position: absolute;
+    //     content: "";
+    //     display: inline-block;
+    //     top: -180px;
+    //     left: 0;
+    //     width: 30px;
+    //     height: 100%;
+    //     background-color: #fff;
+    //     animation: shiny-btn1 3s ease-in-out infinite;
+    // }
     &:hover {
         // opacity: 0.8;
         filter: contrast(150%);
+        border: 2px solid rgba(0, 0, 0, 0.7);
+        box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+            4px 4px 5px 0px rgba(0, 0, 0, 0.1);
     }
-    &:active {
-        box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.3), -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
-            inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2), inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
-    }
-    @keyframes shiny-btn1 {
-        0% {
-            transform: scale(0) rotate(45deg);
-            opacity: 0;
-        }
-        80% {
-            transform: scale(0) rotate(45deg);
-            opacity: 0.5;
-        }
-        81% {
-            transform: scale(4) rotate(45deg);
-            opacity: 1;
-        }
-        100% {
-            transform: scale(50) rotate(45deg);
-            opacity: 0;
-        }
-    }
+    // &:active {
+    //     box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.3), -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
+    //         inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2), inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
+    // }
+    // @keyframes shiny-btn1 {
+    //     0% {
+    //         transform: scale(0) rotate(45deg);
+    //         opacity: 0;
+    //     }
+    //     80% {
+    //         transform: scale(0) rotate(45deg);
+    //         opacity: 0.5;
+    //     }
+    //     81% {
+    //         transform: scale(4) rotate(45deg);
+    //         opacity: 1;
+    //     }
+    //     100% {
+    //         transform: scale(50) rotate(45deg);
+    //         opacity: 0;
+    //     }
+    // }
 }
 .add_btn,
 .close_btn {
-    border: none;
-    background: rgb(251, 33, 117);
-    background: linear-gradient(0deg, rgba(251, 33, 117, 1) 0%, rgba(234, 76, 137, 1) 100%);
+    // border: none;
+    // background: rgb(251, 33, 117);
+    // background: linear-gradient(0deg, rgba(251, 33, 117, 1) 0%, rgba(234, 76, 137, 1) 100%);
 
     img {
         height: 100%;
@@ -132,8 +140,8 @@ body {
     width: 60px;
     padding: 15px;
     border-radius: 15px;
-    background: rgb(80, 33, 251);
-    background: linear-gradient(0deg, rgb(33, 37, 251) 0%, rgb(100, 76, 234) 100%);
+    // background: rgb(80, 33, 251);
+    // background: linear-gradient(0deg, rgb(33, 37, 251) 0%, rgb(100, 76, 234) 100%);
     img {
         transform: rotate(45deg);
     }
@@ -141,10 +149,10 @@ body {
         animation-delay: 1500ms;
     }
 }
-.save_btn {
-    background: rgb(33, 251, 116);
-    background: linear-gradient(0deg, rgb(0, 255, 21) 0%, rgb(121, 234, 76) 100%);
-}
+// .save_btn {
+//     background: rgb(33, 251, 116);
+//     background: linear-gradient(0deg, rgb(0, 255, 21) 0%, rgb(121, 234, 76) 100%);
+// }
 @import "./addmodal";
 @import "./sidemenu";
 
@@ -171,4 +179,32 @@ body {
 }
 a {
     text-decoration: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+@media print {
+    // @page {
+    //     size: landscape;
+    // }
+    // body {
+    //     border: 1px solid red;
+    // }
+    .btn.add_btn,
+    #gantt_table,
+    .side_menu {
+        // background: red;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden !important;
+    }
 }

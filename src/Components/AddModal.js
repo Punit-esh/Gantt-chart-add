@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import close_img from "../img/close.png";
 import added from "../img/check.png";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
 
 export const AddModal = ({ data_arr, setdata_arr, setadd_modal }) => {
   const [name, setname] = useState("");
@@ -21,22 +23,37 @@ export const AddModal = ({ data_arr, setdata_arr, setadd_modal }) => {
     }
   }, [percent]);
   useEffect(() => {
-    setend_date("");
+    if (start_date == "") {
+      setdate_err("set start date first");
+      setend_date("");
+    } else {
+      setdate_err("set End date");
+    }
   }, [start_date]);
+  useEffect(() => {
+    if (start_date != "" && end_date != "") {
+      if (new Date(end_date) - new Date(start_date) < 0) {
+        setdate_err("End Date cannot be before Start Date");
+      } else {
+        setdate_err("");
+      }
+    }
+  }, [start_date, end_date]);
   useEffect(() => {
     if (
       name != "" &&
       start_date != "" &&
       end_date != "" &&
       percent != "" &&
-      percent_err == ""
+      percent_err == "" &&
+      date_err == ""
     ) {
       setsave(true);
     } else {
       setsave(false);
     }
-  }, [name, start_date, end_date, percent, percent_err]);
-  console.log(percent);
+  }, [name, start_date, end_date, percent, percent_err, date_err]);
+  console.log(date_err);
   return (
     <div className="addmodal">
       <div className="modal_main">
@@ -48,14 +65,32 @@ export const AddModal = ({ data_arr, setdata_arr, setadd_modal }) => {
           </label>
           <label>
             Start Date
-            <input
+            <Stack component="form" noValidate spacing={3}>
+              <TextField
+                id="date"
+                type="date"
+                sx={{ width: "100%" }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                value={start_date}
+                onChange={(newValue) => {
+                  setstart_date(newValue.target.value);
+                  if (end_date != "") {
+                    setdate_err("set End Date");
+                  }
+                  setend_date("");
+                }}
+              />
+            </Stack>
+            {/* <input
               type="date"
               onChange={(e) => setstart_date(e.target.value)}
-            />
+            /> */}
           </label>
           <label>
             End Date
-            {start_date == "" ? (
+            {date_err == "set start date first" ? (
               <>
                 {/* <input
                   type="date"
@@ -72,21 +107,32 @@ export const AddModal = ({ data_arr, setdata_arr, setadd_modal }) => {
                   className="error input"
                   id="startdate_not_filled"
                 >
-                  select start date first
+                  {date_err}
                 </div>
               </>
             ) : (
-              <input
-                type="date"
-                value={end_date}
-                min={new Date(start_date).toISOString().split("T")[0]}
-                onChange={(e) => setend_date(e.target.value)}
-              />
+              <>
+                <Stack component="form" noValidate spacing={3}>
+                  <TextField
+                    id="date1"
+                    type="date"
+                    sx={{ width: "100%" }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    value={end_date}
+                    onChange={(newValue) => {
+                      setend_date(newValue.target.value);
+                    }}
+                  />
+                </Stack>
+                <div className="error">{date_err}</div>
+              </>
             )}
           </label>
           <label>
             Percentage Complete
-            <input type="text" onChange={(e) => setpercent(e.target.value)} />
+            <input type="number" onChange={(e) => setpercent(e.target.value)} />
             <div show={`${percent_err ? "true" : "false"}`} className="error">
               {percent_err}
             </div>
@@ -94,7 +140,7 @@ export const AddModal = ({ data_arr, setdata_arr, setadd_modal }) => {
         </div>
         <div className="actions_btn">
           <div className="btn close_btn" onClick={() => setadd_modal(false)}>
-            <img src={close_img} />
+            Cancel
           </div>
           {save ? (
             <div
@@ -134,11 +180,13 @@ export const AddModal = ({ data_arr, setdata_arr, setadd_modal }) => {
                 setadd_modal(false);
               }}
             >
-              <img src={added} />
+              {/* <img src={added} /> */}
+              ADD
             </div>
           ) : (
             <div className="btn close_btn save_btn disabled">
-              <img src={added} />
+              {/* <img src={added} /> */}
+              ADD
             </div>
           )}
         </div>
