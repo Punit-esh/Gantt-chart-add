@@ -1,0 +1,115 @@
+.side_menu {
+    position: fixed;
+    bottom: 70px;
+    right: 70px;
+    .arrow {
+        height: 35px;
+        width: 35px;
+        border: 10px solid transparent;
+        border-left: 10px solid #fd3802;
+        border-top: 10px solid #fd3802;
+        border-top-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        transition: 300ms all;
+        animation: shiver 600ms linear infinite;
+        @keyframes shiver {
+            0%,
+            100%,
+            40%,
+            70% {
+                transform: rotate(0deg);
+            }
+            41%,
+            69% {
+                transform: rotate(5deg);
+            }
+            50% {
+                transform: rotate(-5deg);
+            }
+        }
+    }
+    &.active {
+        .arrow {
+            border: 10px solid transparent;
+            border-right: 10px solid #fd3802;
+            border-bottom: 10px solid #fd3802;
+            animation: unset;
+            transform: translate(-30px, -30px);
+        }
+    }
+    > .btn {
+        position: absolute;
+        height: 60px;
+        width: 60px;
+        padding: 10px;
+        border-radius: 15px;
+        font-size: 15px;
+        text-align: center;
+        &.btn_right_menu {
+            &.menu1,
+            &.menu2 {
+                bottom: 30px;
+                right: -40px;
+                background: rgb(33, 244, 251);
+                background: linear-gradient(0deg, rgb(33, 244, 251) 0%, rgb(33, 244, 251) 100%);
+                display: flex;
+                flex-direction: column;
+                color: #00000080;
+                transform: translateY(70px);
+                img {
+                    height: 70%;
+                }
+            }
+
+            &.menu2 {
+                color: #fff;
+                bottom: 100px;
+                right: -40px;
+                transform: translateY(140px);
+                background: rgb(251, 164, 33);
+                background: linear-gradient(0deg, rgb(251, 164, 33) 0%, rgb(251, 164, 33) 100%);
+            }
+        }
+        &.btn_bottom_menu {
+            &.menu1,
+            &.menu2 {
+                bottom: -40px;
+                right: 30px;
+                background: rgb(207, 33, 251);
+                background: linear-gradient(0deg, rgb(207, 33, 251) 0%, rgb(207, 33, 251) 100%);
+                display: flex;
+                flex-direction: column;
+                color: #fff;
+                img {
+                    height: 70%;
+                }
+            }
+            &.menu1 {
+                transform: translateX(70px);
+            }
+            &.menu2 {
+                color: #fff;
+                bottom: -40px;
+                right: 100px;
+                background: rgb(251, 33, 33);
+                background: linear-gradient(0deg, rgb(251, 33, 33) 0%, rgb(251, 33, 33) 100%);
+                transform: translateX(140px);
+                img {
+                    height: 100%;
+                    padding-left: 10px;
+                    padding-top: 5px;
+                }
+            }
+        }
+    }
+    &.active {
+        .download_txt,
+        .download_json {
+            transform: translateY(0px) !important;
+        }
+        .download_chart,
+        .clear_all {
+            transform: translateX(0px) !important;
+        }
+    }
+}

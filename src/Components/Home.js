@@ -2,8 +2,49 @@ import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import close_img from "../img/close.png";
 import { AddModal } from "./AddModal";
+import { SideMenu } from "./SideMenu";
 
 export const Home = () => {
+  const [data_arr, setdata_arr] = useState([
+    // [
+    //   "2014Spring",
+    //   "Spring 2014",
+    //   `0`,
+    //   new Date(2014, 2, 22),
+    //   new Date(2014, 5, 20),
+    //   null,
+    //   100,
+    //   null,
+    // ],
+  ]);
+
+  const [add_modal, setadd_modal] = useState(false);
+
+  useEffect(() => {
+    if (
+      localStorage.getItem("data_arr") != null ||
+      localStorage.getItem("data_arr").length == 0
+    ) {
+      console.log("got local", JSON.parse(localStorage.getItem("data_arr")));
+      let local_arr = JSON.parse(localStorage.getItem("data_arr"));
+      setdata_arr([
+        ...local_arr.map((el) => [
+          el[0],
+          el[1],
+          el[2],
+          new Date(el[3]),
+          new Date(el[4]),
+          el[5],
+          el[6],
+          el[7],
+        ]),
+      ]);
+    }
+  }, []);
+  // useEffect(() => {
+  //   localStorage.setItem("data_arr", JSON.stringify(data_arr));
+  // }, [data_arr]);
+
   const columns = [
     { type: "string", label: "Task ID" },
     { type: "string", label: "Task Name" },
@@ -15,25 +56,6 @@ export const Home = () => {
     { type: "string", label: "Dependencies" },
   ];
 
-  const [data_arr, setdata_arr] = useState([
-    // ..."1111111111111111111111111111111111111111"
-    //   .split("")
-    //   .map((el, i) =>
-    [
-      "2014Spring",
-      "Spring 2014",
-      `0`,
-      new Date(2014, 2, 22),
-      new Date(2014, 5, 20),
-      null,
-      100,
-      null,
-    ],
-    //   ),
-  ]);
-  const [add_modal, setadd_modal] = useState(false);
-
-  const data = [columns, ...data_arr];
   const options = {
     height: 40 + data_arr.length * 30,
     gantt: {
@@ -51,93 +73,65 @@ export const Home = () => {
       <td class="btn_main">Action</td>
     </tr>
   );
-  //   const table_input = (id) => (
-  //     <tr class="table_input">
-  //       <td>{id}</td>
-  //       <td>
-  //         <input type="text" id="task_name" />
-  //       </td>
-  //       <td>
-  //         <input type="date" id="task_startdate" />
-  //       </td>
-  //       <td>
-  //         <input type="date" id="task_enddate" />
-  //       </td>
-  //       <td>
-  //         <input type="number" max="100" min="0" id="task_percent" />
-  //       </td>
-  //       <td class="btn_main">
-  //         <div class="btn add_btn" onclick={() => add_datatoarr(id)}>
-  //           Add
-  //         </div>
-  //       </td>
-  //     </tr>
-  //   );
-
-  //   const add_datatoarr = (id) => {
-  //     let data_to_add = [
-  //       `${id}`,
-  //       document.getElementById("task_name").value,
-  //       document.getElementById("task_startdate").value,
-  //       document.getElementById("task_enddate").value,
-  //       null,
-  //       document.getElementById("task_percent").value,
-  //       null,
-  //     ];
-  //     console.log(data_arr, data_to_add);
-  //     data_arr.push([
-  //       data_to_add[0],
-  //       data_to_add[1],
-  //       new Date(data_to_add[2]),
-  //       new Date(data_to_add[3]),
-  //       data_to_add[4],
-  //       Number(data_to_add[5]),
-  //       data_to_add[6],
-  //     ]);
+  const delete_data_arr = (i) => {
+    let copy_data_arr = [...data_arr];
+    copy_data_arr.splice(i, 1);
+    setdata_arr([...copy_data_arr]);
+    localStorage.setItem("data_arr", JSON.stringify([...copy_data_arr]));
+  };
 
   return (
     <div>
       <table id="gantt_table">
         {table_header()}
-        {data_arr.map((el) => {
-          let temp_start_date = `
+        {data_arr.length == 0 ? (
+          <tr>
+            <td colSpan="6">
+              <div className="no_data">No data available</div>
+            </td>
+          </tr>
+        ) : (
+          data_arr.map((el, i) => {
+            let temp_start_date = `
           ${new Date(el[3]).getDate()}
           /
           ${new Date(el[3]).getMonth()}
           /
           ${new Date(el[3]).getFullYear()}`;
-          let temp_end_date = `
+            let temp_end_date = `
           ${new Date(el[4]).getDate()}
           /
           ${new Date(el[4]).getMonth()}
           /
           ${new Date(el[4]).getFullYear()}`;
-          return (
-            <tr class="">
-              <td>{el[0]}</td>
-              <td>{el[1]}</td>
-              <td>{temp_start_date}</td>
-              <td>{temp_end_date}</td>
-              <td>{el[6]}%</td>
-              <td class="btn_main">
-                <div class="btn close_btn">
-                  <img src={close_img} />
-                </div>
-              </td>
-            </tr>
-          );
-        })}
+            return (
+              <tr class="">
+                <td>{el[0]}</td>
+                <td>{el[1]}</td>
+                <td>{temp_start_date}</td>
+                <td>{temp_end_date}</td>
+                <td>{el[6]}%</td>
+                <td class="btn_main">
+                  <div class="btn close_btn">
+                    <img src={close_img} onClick={() => delete_data_arr(i)} />
+                  </div>
+                </td>
+              </tr>
+            );
+          })
+        )}
       </table>
-      <Chart
-        chartType="Gantt"
-        width="100%"
-        height="50%"
-        data={data}
-        options={options}
-      />
-      <div className="btn add_btn" onClick={() => setadd_modal(true)}>
-        <img src={close_img} />
-      </div>
+      {data_arr.length == 0 ? (
+        <></>
+      ) : (
+        <Chart
+          chartType="Gantt"
+          width="100%"
+          height="50%"
+          data={[columns, ...data_arr]}
+          options={options}
+        />
+      )}
       {add_modal && (
         <AddModal
           data_arr={data_arr}
@@ -145,6 +139,11 @@ export const Home = () => {
           setadd_modal={setadd_modal}
         />
       )}
+      <SideMenu
+        setadd_modal={setadd_modal}
+        data_arr={data_arr}
+        setdata_arr={setdata_arr}
+      />
     </div>
   );
 };
