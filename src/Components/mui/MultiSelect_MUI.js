@@ -17,19 +17,6 @@ const MenuProps = {
   },
 };
 
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -39,20 +26,27 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function MultipleSelect() {
+export default function MultipleSelect({ names, relations, setrelations }) {
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+  //   const [personName, setPersonName] = React.useState([]);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setrelations(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
   };
-
+  //   console.log(names);
+  if (names.length == 0) {
+    return (
+      <div show="true" className="error input">
+        There's no task before this date
+      </div>
+    );
+  }
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
@@ -63,18 +57,18 @@ export default function MultipleSelect() {
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
           multiple
-          value={personName}
+          value={relations}
           onChange={handleChange}
           input={<OutlinedInput label="Name" />}
           MenuProps={MenuProps}
         >
-          {names.map((name) => (
+          {names.map((el) => (
             <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
+              key={el[0]}
+              value={el[0]}
+              style={getStyles(el[0], relations, theme)}
             >
-              {name}
+              {el[1]}
             </MenuItem>
           ))}
         </Select>

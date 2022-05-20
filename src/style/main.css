@@ -80,7 +80,6 @@ body *:before {
   cursor: pointer;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  position: relative;
   display: inline-block;
   -webkit-box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0), 7px 7px 20px 0px rgba(0, 0, 0, 0), 4px 4px 5px 0px rgba(0, 0, 0, 0);
           box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0), 7px 7px 20px 0px rgba(0, 0, 0, 0), 4px 4px 5px 0px rgba(0, 0, 0, 0);
@@ -95,9 +94,39 @@ body *:before {
       -ms-flex-align: center;
           align-items: center;
   color: #fff;
-  overflow: hidden;
   border: 2px solid rgba(0, 0, 0, 0.3);
   color: #000;
+}
+
+.btn .btn_toaster {
+  position: absolute;
+  bottom: 0px;
+  right: 60px;
+  width: 300px;
+  border: 1px solid red;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #fff;
+  border-radius: 5px;
+  -webkit-transform: scaleY(0);
+          transform: scaleY(0);
+  -webkit-transform-origin: right;
+          transform-origin: right;
+  -webkit-transition: 0.4s all;
+  transition: 0.4s all;
+}
+
+.btn:hover .btn_toaster {
+  -webkit-transform: scaleY(1);
+          transform: scaleY(1);
 }
 
 .btn:hover {
@@ -121,10 +150,7 @@ body *:before {
 }
 
 .add_btn {
-  position: fixed;
-  right: 30px;
   z-index: 10;
-  bottom: 30px;
   height: 60px;
   width: 60px;
   padding: 15px;
@@ -210,6 +236,21 @@ body *:before {
   outline: 0;
 }
 
+.addmodal .modal_main .css-2m9kme-MuiFormControl-root {
+  width: 100%;
+  height: 45px;
+  margin-inline: 0;
+}
+
+.addmodal .modal_main .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 10px 5px;
+  line-height: 26px;
+}
+
+.addmodal .modal_main .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  line-height: 18px;
+}
+
 .addmodal .actions_btn {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -266,14 +307,27 @@ body *:before {
 }
 
 .side_menu {
-  position: fixed;
   bottom: 40px;
   right: 90px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding-right: 20px;
+  margin-top: 20px;
+}
+
+.side_menu > * {
+  margin-left: 15px;
 }
 
 .side_menu .arrow {
-  height: 37px;
-  width: 37px;
+  display: none;
   margin: auto;
   border: 10px solid transparent;
   border-left: 10px solid #000000;
@@ -302,7 +356,6 @@ body *:before {
 }
 
 .side_menu > .btn {
-  position: absolute;
   height: 60px;
   width: 60px;
   padding: 10px;

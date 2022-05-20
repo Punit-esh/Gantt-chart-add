@@ -106,13 +106,30 @@ export const SideMenu = ({ setadd_modal, data_arr, setdata_arr }) => {
   };
   return (
     <>
-      <div className="side_menu">
-        <div
+      <div className="side_menu active">
+        {/* <div
           cursor="pointer"
           className="arrow"
           onClick={(e) => e.target.parentNode.classList.toggle("active")}
-        ></div>
-
+        ></div> */}
+        <div
+          className="btn btn_bottom_menu menu2 clear_all"
+          onClick={() => {
+            setdata_arr([]);
+            localStorage.setItem("data_arr", JSON.stringify([]));
+          }}
+          data-disable={data_arr.length < 1 ? "yes" : "no"}
+        >
+          <img src={cleartable} />
+        </div>
+        <div
+          className="btn btn_bottom_menu menu1 download_chart"
+          onClick={() => window.print()}
+          data-disable={data_arr.length < 1 ? "yes" : "no"}
+        >
+          <img src={download} />
+          <span>chart</span>
+        </div>
         <a
           href={
             "data:text/plain;base64," +
@@ -137,27 +154,9 @@ export const SideMenu = ({ setadd_modal, data_arr, setdata_arr }) => {
           <span>.txt</span>
         </label>
 
-        <div
-          className="btn btn_bottom_menu menu1 download_chart"
-          onClick={() => window.print()}
-          data-disable={data_arr.length < 1 ? "yes" : "no"}
-        >
-          <img src={download} />
-          <span>chart</span>
+        <div className="btn add_btn" onClick={() => setadd_modal(true)}>
+          <img src={close_img} />
         </div>
-        <div
-          className="btn btn_bottom_menu menu2 clear_all"
-          onClick={() => {
-            setdata_arr([]);
-            localStorage.setItem("data_arr", JSON.stringify([]));
-          }}
-          data-disable={data_arr.length < 1 ? "yes" : "no"}
-        >
-          <img src={cleartable} />
-        </div>
-      </div>
-      <div className="btn add_btn" onClick={() => setadd_modal(true)}>
-        <img src={close_img} />
       </div>
       <div className="txt_upload">
         <div className="heading">.txt upload</div>

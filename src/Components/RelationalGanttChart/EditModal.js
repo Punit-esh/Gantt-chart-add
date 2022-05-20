@@ -18,7 +18,12 @@ const MenuProps = {
   },
 };
 
-export const AddModal = ({ rel_data_arr, setrel_data_arr, setadd_modal }) => {
+export const EditModal = ({
+  rel_data_arr,
+  edit_data,
+  setrel_data_arr,
+  setedit_modal,
+}) => {
   const [name, setname] = useState("");
 
   const [start_date, setstart_date] = useState("");
@@ -29,9 +34,35 @@ export const AddModal = ({ rel_data_arr, setrel_data_arr, setadd_modal }) => {
   const [percent_err, setpercent_err] = useState("");
 
   const [relations, setrelations] = useState([]);
-  console.log(relations);
 
   const [save, setsave] = useState(false);
+
+  useEffect(() => {
+    let edit_start_date = new Date(rel_data_arr[edit_data][3]);
+    let edit_end_date = new Date(rel_data_arr[edit_data][4]);
+    // console.log(edit_end_date);
+    setname(rel_data_arr[edit_data][1]);
+    setstart_date(
+      `${edit_start_date.getFullYear()}-${
+        edit_start_date.getMonth() < 9 ? "0" : ""
+      }${edit_start_date.getMonth() + 1}-${
+        edit_start_date.getDate() < 10 ? "0" : ""
+      }${edit_start_date.getDate()}`
+    );
+    setTimeout(() => {
+      setend_date(
+        `${edit_end_date.getFullYear()}-${
+          edit_end_date.getMonth() < 9 ? "0" : ""
+        }${edit_end_date.getMonth() + 1}-${
+          edit_end_date.getDate() < 10 ? "0" : ""
+        }${edit_end_date.getDate()}`
+      );
+    }, 0);
+    setpercent(rel_data_arr[edit_data][6]);
+    setrelations(rel_data_arr[edit_data][7].split(","));
+    console.log(rel_data_arr[edit_data][6].split(","));
+  }, []);
+
   useEffect(() => {
     if (percent < 0 || percent > 100) {
       setpercent_err("percentage should be between 0 and 100");
@@ -73,11 +104,15 @@ export const AddModal = ({ rel_data_arr, setrel_data_arr, setadd_modal }) => {
   return (
     <div className="addmodal">
       <div className="modal_main">
-        <div className="modal_header">Add Data</div>
+        <div className="modal_header">Edit Data</div>
         <div className="modal_body">
           <label>
             Task Name
-            <input type="text" onChange={(e) => setname(e.target.value)} />
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setname(e.target.value)}
+            />
           </label>
           <label>
             Start Date
@@ -138,7 +173,11 @@ export const AddModal = ({ rel_data_arr, setrel_data_arr, setadd_modal }) => {
           </label>
           <label>
             Percentage Complete
-            <input type="number" onChange={(e) => setpercent(e.target.value)} />
+            <input
+              type="number"
+              value={percent}
+              onChange={(e) => setpercent(e.target.value)}
+            />
             <div show={`${percent_err ? "true" : "false"}`} className="error">
               {percent_err}
             </div>
@@ -178,7 +217,7 @@ export const AddModal = ({ rel_data_arr, setrel_data_arr, setadd_modal }) => {
           )}
         </div>
         <div className="actions_btn">
-          <div className="btn close_btn" onClick={() => setadd_modal(false)}>
+          <div className="btn close_btn" onClick={() => setedit_modal(false)}>
             Cancel
           </div>
           {save ? (
@@ -216,7 +255,7 @@ export const AddModal = ({ rel_data_arr, setrel_data_arr, setadd_modal }) => {
                     ],
                   ])
                 );
-                setadd_modal(false);
+                setedit_modal(false);
               }}
             >
               {/* <img src={added} /> */}

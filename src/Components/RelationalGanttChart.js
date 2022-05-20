@@ -1,77 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import close_img from "../img/close.png";
+import edit_img from "../img/edit.png";
 import { AddModal } from "./RelationalGanttChart/AddModal";
+import { EditModal } from "./RelationalGanttChart/EditModal";
 import { SideMenu } from "./RelationalGanttChart/SideMenu";
 
-export const RelationalGanttChart = () => {
-  function daysToMilliseconds(days) {
-    return days * 24 * 60 * 60 * 1000;
-  }
-  const [rel_data_arr, setrel_data_arr] = useState([
-    [
-      "Research",
-      "Find sources",
-      "1",
-      new Date(2015, 0, 1),
-      new Date(2015, 0, 5),
-      null,
-      100,
-      null,
-    ],
-    [
-      "Write",
-      "Write paper",
-      "1",
-      null,
-      new Date(2015, 0, 9),
-      daysToMilliseconds(3),
-      25,
-      "Research,Outline",
-    ],
-    [
-      "Cite",
-      "Create bibliography",
-      "1",
-      null,
-      new Date(2015, 0, 7),
-      daysToMilliseconds(1),
-      20,
-      "Research",
-    ],
-    [
-      "Complete",
-      "Hand in paper",
-      "1",
-      null,
-      new Date(2015, 0, 10),
-      daysToMilliseconds(1),
-      0,
-      "Cite,Write",
-    ],
-    [
-      "Outline",
-      "Outline paper",
-      "1",
-      null,
-      new Date(2015, 0, 6),
-      daysToMilliseconds(1),
-      100,
-      "Research",
-    ],
-  ]);
+const columns = [
+  { type: "string", label: "Task ID" },
+  { type: "string", label: "Task Name" },
+  { type: "string", label: "Resource" },
+  { type: "date", label: "Start Date" },
+  { type: "date", label: "End Date" },
+  { type: "number", label: "Duration" },
+  { type: "number", label: "Percent Complete" },
+  { type: "string", label: "Dependencies" },
+];
 
+export const RelationalGanttChart = () => {
+  const [relational_arr, setrelational_arr] = useState([]);
+  const [rel_data_arr, setrel_data_arr] = useState([]);
+  const [edit_modal, setedit_modal] = useState(false);
+  const [edit_data, setedit_data] = useState("");
+  console.log(relational_arr);
   const [add_modal, setadd_modal] = useState(false);
+
+  useEffect(() => {
+    setrelational_arr([]);
+    let temp_arr = [];
+    rel_data_arr.map((el) => {
+      if (el[7] == "") return;
+      el[7].split(",").map((el1) => {
+        if (temp_arr.indexOf(el1) == -1) {
+          temp_arr.push(el1);
+        }
+      });
+    });
+    setrelational_arr([...temp_arr]);
+  }, [rel_data_arr]);
 
   useEffect(() => {
     if (
       localStorage.getItem("rel_data_arr") != null
       // || localStorage.getItem("rel_data_arr").length == 0
     ) {
-      console.log(
-        "got local",
-        JSON.parse(localStorage.getItem("rel_data_arr"))
-      );
       let local_arr = JSON.parse(localStorage.getItem("rel_data_arr"));
       setrel_data_arr([
         ...local_arr.map((el) => [
@@ -88,17 +60,6 @@ export const RelationalGanttChart = () => {
     }
   }, []);
 
-  const columns = [
-    { type: "string", label: "Task ID" },
-    { type: "string", label: "Task Name" },
-    { type: "string", label: "Resource" },
-    { type: "date", label: "Start Date" },
-    { type: "date", label: "End Date" },
-    { type: "number", label: "Duration" },
-    { type: "number", label: "Percent Complete" },
-    { type: "string", label: "Dependencies" },
-  ];
-
   const options = {
     height: 40 + rel_data_arr.length * 30,
     // width: window.innerWidth > 700 ? 1000 : window.innerWidth - 100,
@@ -113,6 +74,7 @@ export const RelationalGanttChart = () => {
       <td>Task Name</td>
       <td>Start Date</td>
       <td>End Date</td>
+      {/* <td>something</td> */}
       <td>
         Percentage
         <br />
@@ -147,6 +109,11 @@ export const RelationalGanttChart = () => {
           />
         </div>
       )}
+      <SideMenu
+        setadd_modal={setadd_modal}
+        rel_data_arr={rel_data_arr}
+        setrel_data_arr={setrel_data_arr}
+      />
       <table id="gantt_table">
         {table_header()}
         {rel_data_arr.length == 0 ? (
@@ -176,14 +143,37 @@ export const RelationalGanttChart = () => {
                 <td>{temp_start_date}</td>
                 <td>{temp_end_date}</td>
 
+                {/* <td>{new Date(el[5]).toLocaleDateString}</td> */}
                 <td>{el[6]}%</td>
                 <td>{el[7]}</td>
                 <td className="btn_main">
+                  {relational_arr.indexOf(el[0]) > -1 ? (
+                    <>
+                      <div className="btn close_btn">
+                        <div className="btn_toaster">
+                          Other items are dependent on this
+                        </div>
+                        <img src={close_img} />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        className="btn close_btn"
+                        onClick={() => delete_rel_data_arr(i)}
+                      >
+                        <img src={close_img} />
+                      </div>
+                    </>
+                  )}
                   <div
                     className="btn close_btn"
-                    onClick={() => delete_rel_data_arr(i)}
+                    onClick={() => {
+                      setedit_data(i);
+                      setedit_modal(true);
+                    }}
                   >
-                    <img src={close_img} />
+                    <img src={edit_img} />
                   </div>
                 </td>
               </tr>
@@ -198,11 +188,14 @@ export const RelationalGanttChart = () => {
           setadd_modal={setadd_modal}
         />
       )}
-      <SideMenu
-        setadd_modal={setadd_modal}
-        rel_data_arr={rel_data_arr}
-        setrel_data_arr={setrel_data_arr}
-      />
+      {edit_modal && (
+        <EditModal
+          edit_data={edit_data}
+          rel_data_arr={rel_data_arr}
+          setrel_data_arr={setrel_data_arr}
+          setedit_modal={setedit_modal}
+        />
+      )}
     </div>
   );
 };

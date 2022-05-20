@@ -106,13 +106,29 @@ export const SideMenu = ({ setadd_modal, rel_data_arr, setrel_data_arr }) => {
   };
   return (
     <>
-      <div className="side_menu">
+      <div className="side_menu active">
         <div
           cursor="pointer"
           className="arrow"
           onClick={(e) => e.target.parentNode.classList.toggle("active")}
         ></div>
+        <div
+          className="btn btn_bottom_menu menu2 clear_all"
+          onClick={() => {
+            setrel_data_arr([]);
+            localStorage.setItem("rel_data_arr", JSON.stringify([]));
+          }}
+        >
+          <img src={cleartable} />
+        </div>
 
+        <div
+          className="btn btn_bottom_menu menu1 download_chart"
+          onClick={() => window.print()}
+        >
+          <img src={download} />
+          <span>chart</span>
+        </div>
         <a
           href={
             "data:text/plain;base64," +
@@ -135,26 +151,9 @@ export const SideMenu = ({ setadd_modal, rel_data_arr, setrel_data_arr }) => {
           <img src={upload} />
           <span>.txt</span>
         </label>
-
-        <div
-          className="btn btn_bottom_menu menu1 download_chart"
-          onClick={() => window.print()}
-        >
-          <img src={download} />
-          <span>chart</span>
+        <div className="btn add_btn" onClick={() => setadd_modal(true)}>
+          <img src={close_img} />
         </div>
-        <div
-          className="btn btn_bottom_menu menu2 clear_all"
-          onClick={() => {
-            setrel_data_arr([]);
-            localStorage.setItem("rel_data_arr", JSON.stringify([]));
-          }}
-        >
-          <img src={cleartable} />
-        </div>
-      </div>
-      <div className="btn add_btn" onClick={() => setadd_modal(true)}>
-        <img src={close_img} />
       </div>
       <div className="txt_upload">
         <div className="heading">.txt upload</div>

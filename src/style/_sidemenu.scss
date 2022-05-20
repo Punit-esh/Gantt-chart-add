@@ -1,10 +1,19 @@
 .side_menu {
-    position: fixed;
+    // position: fixed;
     bottom: 40px;
     right: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 20px;
+    margin-top: 20px;
+    > * {
+        margin-left: 15px;
+    }
     .arrow {
-        height: 37px;
-        width: 37px;
+        display: none;
+        // height: 37px;
+        // width: 37px;
         margin: auto;
         border: 10px solid transparent;
         border-left: 10px solid #000000;
@@ -44,7 +53,7 @@
         }
     }
     > .btn {
-        position: absolute;
+        // position: absolute;
         height: 60px;
         width: 60px;
         padding: 10px;

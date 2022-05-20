@@ -7,28 +7,14 @@ import { EditModal } from "./SimpleGanttChart/EditModal";
 import { SideMenu } from "./SimpleGanttChart/SideMenu";
 
 export const SimpleGanttChart = () => {
-  const [data_arr, setdata_arr] = useState([
-    // [
-    //   "2014Spring",
-    //   "Spring 2014",
-    //   `0`,
-    //   new Date(2014, 2, 22),
-    //   new Date(2014, 5, 20),
-    //   null,
-    //   100,
-    //   null,
-    // ],
-  ]);
+  const [data_arr, setdata_arr] = useState([]);
 
   const [add_modal, setadd_modal] = useState(false);
   const [edit_modal, setedit_modal] = useState(false);
   const [edit_data, setedit_data] = useState("");
 
   useEffect(() => {
-    if (
-      localStorage.getItem("data_arr") != null
-      // || localStorage.getItem("data_arr").length == 0
-    ) {
+    if (localStorage.getItem("data_arr") != null) {
       console.log("got local", JSON.parse(localStorage.getItem("data_arr")));
       let local_arr = JSON.parse(localStorage.getItem("data_arr"));
       setdata_arr([
@@ -97,6 +83,11 @@ export const SimpleGanttChart = () => {
           />
         </div>
       )}
+      <SideMenu
+        setadd_modal={setadd_modal}
+        data_arr={data_arr}
+        setdata_arr={setdata_arr}
+      />
       <table id="gantt_table">
         {table_header()}
         {data_arr.length == 0 ? (
@@ -163,11 +154,6 @@ export const SimpleGanttChart = () => {
           setedit_modal={setedit_modal}
         />
       )}
-      <SideMenu
-        setadd_modal={setadd_modal}
-        data_arr={data_arr}
-        setdata_arr={setdata_arr}
-      />
     </div>
   );
 };
