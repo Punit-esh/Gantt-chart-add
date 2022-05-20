@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import close_img from "../img/close.png";
-import { AddModal } from "./AddModal";
-import { SideMenu } from "./SideMenu";
+import edit_img from "../img/edit.png";
+import { AddModal } from "./SimpleGanttChart/AddModal";
+import { EditModal } from "./SimpleGanttChart/EditModal";
+import { SideMenu } from "./SimpleGanttChart/SideMenu";
 
-export const Home = () => {
+export const SimpleGanttChart = () => {
   const [data_arr, setdata_arr] = useState([
     // [
     //   "2014Spring",
@@ -19,6 +21,8 @@ export const Home = () => {
   ]);
 
   const [add_modal, setadd_modal] = useState(false);
+  const [edit_modal, setedit_modal] = useState(false);
+  const [edit_data, setedit_data] = useState("");
 
   useEffect(() => {
     if (
@@ -129,6 +133,15 @@ export const Home = () => {
                   >
                     <img src={close_img} />
                   </div>
+                  <div
+                    className="btn close_btn"
+                    onClick={() => {
+                      setedit_data(i);
+                      setedit_modal(true);
+                    }}
+                  >
+                    <img src={edit_img} />
+                  </div>
                 </td>
               </tr>
             );
@@ -140,6 +153,14 @@ export const Home = () => {
           data_arr={data_arr}
           setdata_arr={setdata_arr}
           setadd_modal={setadd_modal}
+        />
+      )}
+      {edit_modal && (
+        <EditModal
+          edit_data={edit_data}
+          data_arr={data_arr}
+          setdata_arr={setdata_arr}
+          setedit_modal={setedit_modal}
         />
       )}
       <SideMenu

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import close_img from "../img/close.png";
-import download from "../img/download.png";
-import upload from "../img/upload.png";
-import cleartable from "../img/cleartable.png";
+import close_img from "../../img/close.png";
+import download from "../../img/download.png";
+import upload from "../../img/upload.png";
+import cleartable from "../../img/cleartable.png";
 import { handleBreakpoints } from "@mui/system";
 
 export const SideMenu = ({ setadd_modal, data_arr, setdata_arr }) => {
@@ -124,6 +124,7 @@ export const SideMenu = ({ setadd_modal, data_arr, setdata_arr }) => {
           }
           download="GanttChart.txt"
           className="btn btn_right_menu menu1 download_txt"
+          data-disable={data_arr.length < 1 ? "yes" : "no"}
         >
           <img src={download} />
           <span>.txt</span>
@@ -139,6 +140,7 @@ export const SideMenu = ({ setadd_modal, data_arr, setdata_arr }) => {
         <div
           className="btn btn_bottom_menu menu1 download_chart"
           onClick={() => window.print()}
+          data-disable={data_arr.length < 1 ? "yes" : "no"}
         >
           <img src={download} />
           <span>chart</span>
@@ -149,6 +151,7 @@ export const SideMenu = ({ setadd_modal, data_arr, setdata_arr }) => {
             setdata_arr([]);
             localStorage.setItem("data_arr", JSON.stringify([]));
           }}
+          data-disable={data_arr.length < 1 ? "yes" : "no"}
         >
           <img src={cleartable} />
         </div>

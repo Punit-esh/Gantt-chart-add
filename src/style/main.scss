@@ -31,8 +31,9 @@ body {
     .table_heading {
         font-weight: bold;
         font-size: 20px;
+        border-bottom: 1px solid rgba(143, 143, 143, 0.514);
         > td {
-            border-bottom: 1px solid rgba(143, 143, 143, 0.514);
+            height: 100%;
         }
     }
     & tr.table_input td {
@@ -47,6 +48,13 @@ body {
             &:not([type="date"]) {
                 border-bottom: 1px dashed #000;
             }
+        }
+    }
+    tr:not(.table_heading) {
+        .btn_main {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
         }
     }
 }
@@ -218,4 +226,12 @@ input[type="number"] {
     [id*="reactgooglegraph"] > div {
         margin: auto;
     }
+}
+
+// material class update
+#demo-multiple-name-label {
+    background-color: #fff;
+    // border: 1px solid red;
+    padding-right: 5px;
+    // visibility: hidden;
 }

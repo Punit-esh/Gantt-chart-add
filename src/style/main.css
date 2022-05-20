@@ -38,10 +38,11 @@ body *:before {
 #gantt_table .table_heading {
   font-weight: bold;
   font-size: 20px;
+  border-bottom: 1px solid rgba(143, 143, 143, 0.514);
 }
 
 #gantt_table .table_heading > td {
-  border-bottom: 1px solid rgba(143, 143, 143, 0.514);
+  height: 100%;
 }
 
 #gantt_table tr.table_input td input {
@@ -55,6 +56,17 @@ body *:before {
 
 #gantt_table tr.table_input td input:not([type="date"]) {
   border-bottom: 1px dashed #000;
+}
+
+#gantt_table tr:not(.table_heading) .btn_main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .btn {
@@ -355,6 +367,11 @@ body *:before {
   padding-top: 5px;
 }
 
+.side_menu > .btn[data-disable="yes"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .side_menu.active .btn {
   -webkit-transform: translateX(15px) !important;
           transform: translateX(15px) !important;
@@ -496,5 +513,10 @@ input[type="number"] {
 
 .gantt_chart [id*="reactgooglegraph"] > div {
   margin: auto;
+}
+
+#demo-multiple-name-label {
+  background-color: #fff;
+  padding-right: 5px;
 }
 /*# sourceMappingURL=main.css.map */

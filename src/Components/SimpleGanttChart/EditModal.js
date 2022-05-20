@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import close_img from "../img/close.png";
-import added from "../img/check.png";
+import close_img from "../../img/close.png";
+import added from "../../img/check.png";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 
-export const AddModal = ({ data_arr, setdata_arr, setadd_modal }) => {
+export const EditModal = ({
+  edit_data,
+  data_arr,
+  setdata_arr,
+  setedit_modal,
+}) => {
   const [name, setname] = useState("");
 
   const [start_date, setstart_date] = useState("");
@@ -15,6 +20,32 @@ export const AddModal = ({ data_arr, setdata_arr, setadd_modal }) => {
   const [percent_err, setpercent_err] = useState("");
 
   const [save, setsave] = useState(false);
+
+  useEffect(() => {
+    let edit_start_date = new Date(data_arr[edit_data][3]);
+    let edit_end_date = new Date(data_arr[edit_data][4]);
+    // console.log(edit_end_date);
+    setname(data_arr[edit_data][1]);
+    setstart_date(
+      `${edit_start_date.getFullYear()}-${
+        edit_start_date.getMonth() < 9 ? "0" : ""
+      }${edit_start_date.getMonth() + 1}-${
+        edit_start_date.getDate() < 10 ? "0" : ""
+      }${edit_start_date.getDate()}`
+    );
+    setTimeout(() => {
+      setend_date(
+        `${edit_end_date.getFullYear()}-${
+          edit_end_date.getMonth() < 9 ? "0" : ""
+        }${edit_end_date.getMonth() + 1}-${
+          edit_end_date.getDate() < 10 ? "0" : ""
+        }${edit_end_date.getDate()}`
+      );
+    }, 0);
+    setpercent(data_arr[edit_data][6]);
+  }, []);
+  // console.log(end_date);
+
   useEffect(() => {
     if (percent < 0 || percent > 100) {
       setpercent_err("percentage should be between 0 and 100");
@@ -48,20 +79,39 @@ export const AddModal = ({ data_arr, setdata_arr, setadd_modal }) => {
       percent_err == "" &&
       date_err == ""
     ) {
-      setsave(true);
+      if (
+        data_arr[edit_data][1] != name ||
+        data_arr[edit_data][3] - new Date(start_date) != 0 ||
+        data_arr[edit_data][4] - new Date(end_date) != 0 ||
+        data_arr[edit_data][6] != percent
+      ) {
+        // console.log([
+        //   data_arr[edit_data][1] != name,
+        //   data_arr[edit_data][3],
+        //   start_date,
+        //   data_arr[edit_data][4] - new Date(end_date),
+        //   data_arr[edit_data][6] != percent,
+        // ]);
+        setsave(true);
+      } else {
+        setsave(false);
+      }
     } else {
       setsave(false);
     }
   }, [name, start_date, end_date, percent, percent_err, date_err]);
-  console.log(date_err);
   return (
     <div className="addmodal">
       <div className="modal_main">
-        <div className="modal_header">Add Data</div>
+        <div className="modal_header">Edit Data</div>
         <div className="modal_body">
           <label>
             Task Name
-            <input type="text" onChange={(e) => setname(e.target.value)} />
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setname(e.target.value)}
+            />
           </label>
           <label>
             Start Date
@@ -132,61 +182,51 @@ export const AddModal = ({ data_arr, setdata_arr, setadd_modal }) => {
           </label>
           <label>
             Percentage Complete
-            <input type="number" onChange={(e) => setpercent(e.target.value)} />
+            <input
+              value={percent}
+              type="number"
+              onChange={(e) => setpercent(e.target.value)}
+            />
             <div show={`${percent_err ? "true" : "false"}`} className="error">
               {percent_err}
             </div>
           </label>
         </div>
         <div className="actions_btn">
-          <div className="btn close_btn" onClick={() => setadd_modal(false)}>
+          <div className="btn close_btn" onClick={() => setedit_modal(false)}>
             Cancel
           </div>
           {save ? (
             <div
               className="btn close_btn save_btn"
               onClick={() => {
-                setdata_arr([
-                  ...data_arr,
-                  [
-                    new Date().valueOf(),
-                    name,
-                    Math.floor(Math.random() * 13),
-                    // new Date().valueof(),
-                    new Date(start_date),
-                    new Date(end_date),
-                    null,
-                    percent,
-                    null,
-                  ],
-                ]);
+                console.log(data_arr);
+                let temp_edit_save_arr = [...data_arr];
+                temp_edit_save_arr[edit_data] = [
+                  data_arr[edit_data][0],
+                  name,
+                  data_arr[edit_data][2],
+                  new Date(start_date),
+                  new Date(end_date),
+                  null,
+                  percent,
+                  null,
+                ];
+                setdata_arr([...temp_edit_save_arr]);
                 localStorage.setItem(
                   "data_arr",
-                  JSON.stringify([
-                    ...data_arr,
-                    [
-                      new Date().valueOf(),
-                      name,
-                      Math.floor(Math.random() * 13),
-                      // new Date().valueof(),
-                      new Date(start_date),
-                      new Date(end_date),
-                      null,
-                      percent,
-                      null,
-                    ],
-                  ])
+                  JSON.stringify([...temp_edit_save_arr])
                 );
-                setadd_modal(false);
+                // setedit_modal(false);
               }}
             >
               {/* <img src={added} /> */}
-              ADD
+              Save
             </div>
           ) : (
             <div className="btn close_btn save_btn disabled">
               {/* <img src={added} /> */}
-              ADD
+              SAVE
             </div>
           )}
         </div>
