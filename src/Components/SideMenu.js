@@ -101,6 +101,8 @@ export const SideMenu = ({ setadd_modal, data_arr, setdata_arr }) => {
     // settxtfile_err("File uploaded doenot have the right data type error");
 
     fr.readAsText(current.files[0]);
+    // console.log(current.parentNode.form.reset());
+    // current.value = "";
   };
   return (
     <>
@@ -128,12 +130,16 @@ export const SideMenu = ({ setadd_modal, data_arr, setdata_arr }) => {
         </a>
         <label
           className="btn btn_right_menu menu2 download_json"
-          for="fileupload"
+          htmlFor="fileupload"
         >
           <img src={upload} />
           <span>.txt</span>
         </label>
-        <div className="btn btn_bottom_menu menu1 download_chart">
+
+        <div
+          className="btn btn_bottom_menu menu1 download_chart"
+          onClick={() => window.print()}
+        >
           <img src={download} />
           <span>chart</span>
         </div>
@@ -152,12 +158,14 @@ export const SideMenu = ({ setadd_modal, data_arr, setdata_arr }) => {
       </div>
       <div className="txt_upload">
         <div className="heading">.txt upload</div>
-        <input
-          id="fileupload"
-          type="file"
-          onChange={(e) => handleFileUpload(e.target)}
-          accept=".txt"
-        />
+        <form>
+          <input
+            id="fileupload"
+            type="file"
+            onChange={(e) => handleFileUpload(e.target)}
+            accept=".txt"
+          />
+        </form>
       </div>
       <div className="toast_collector" id="toast_collector">
         {/* <div className="toast">a1</div>

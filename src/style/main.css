@@ -1,6 +1,8 @@
 body {
   margin: 0px;
   padding: 20px;
+  width: 1000px;
+  margin: auto;
 }
 
 body *,
@@ -474,6 +476,9 @@ input[type="number"] {
 }
 
 @media print {
+  @page {
+    size: landscape;
+  }
   .btn.add_btn,
   #gantt_table,
   .side_menu {
@@ -481,5 +486,14 @@ input[type="number"] {
     overflow: hidden;
     visibility: hidden !important;
   }
+}
+
+.gantt_chart {
+  padding: 10px;
+  margin-top: 30px;
+}
+
+.gantt_chart [id*="reactgooglegraph"] > div {
+  margin: auto;
 }
 /*# sourceMappingURL=main.css.map */

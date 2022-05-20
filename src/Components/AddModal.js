@@ -151,8 +151,8 @@ export const AddModal = ({ data_arr, setdata_arr, setadd_modal }) => {
                   [
                     new Date().valueOf(),
                     name,
-                    // Math.floor(Math.random() * 13),
-                    new Date().valueof % 13,
+                    Math.floor(Math.random() * 13),
+                    // new Date().valueof(),
                     new Date(start_date),
                     new Date(end_date),
                     null,
@@ -167,8 +167,8 @@ export const AddModal = ({ data_arr, setdata_arr, setadd_modal }) => {
                     [
                       new Date().valueOf(),
                       name,
-                      // Math.floor(Math.random() * 13),
-                      new Date().valueof % 13,
+                      Math.floor(Math.random() * 13),
+                      // new Date().valueof(),
                       new Date(start_date),
                       new Date(end_date),
                       null,

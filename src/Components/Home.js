@@ -55,20 +55,20 @@ export const Home = () => {
 
   const options = {
     height: 40 + data_arr.length * 30,
-    // width: 1000,
+    // width: window.innerWidth > 700 ? 1000 : window.innerWidth - 100,
     gantt: {
       trackHeight: 30,
     },
   };
 
   const table_header = () => (
-    <tr class="table_heading">
+    <tr className="table_heading">
       <td>Task ID</td>
       <td>Task Name</td>
       <td>Start Date</td>
       <td>End Date</td>
       <td>Percentage Complete</td>
-      <td class="btn_main">Action</td>
+      <td className="btn_main">Action</td>
     </tr>
   );
   const delete_data_arr = (i) => {
@@ -83,13 +83,15 @@ export const Home = () => {
       {data_arr.length == 0 ? (
         <></>
       ) : (
-        <Chart
-          chartType="Gantt"
-          width="100%"
-          height="50%"
-          data={[columns, ...data_arr]}
-          options={options}
-        />
+        <div className="gantt_chart">
+          <Chart
+            chartType="Gantt"
+            width="100%"
+            height="50%"
+            data={[columns, ...data_arr]}
+            options={options}
+          />
+        </div>
       )}
       <table id="gantt_table">
         {table_header()}
@@ -114,14 +116,17 @@ export const Home = () => {
           /
           ${new Date(el[4]).getFullYear()}`;
             return (
-              <tr class="">
+              <tr key={i}>
                 <td>{el[0]}</td>
                 <td>{el[1]}</td>
                 <td>{temp_start_date}</td>
                 <td>{temp_end_date}</td>
                 <td>{el[6]}%</td>
-                <td class="btn_main">
-                  <div class="btn close_btn" onClick={() => delete_data_arr(i)}>
+                <td className="btn_main">
+                  <div
+                    className="btn close_btn"
+                    onClick={() => delete_data_arr(i)}
+                  >
                     <img src={close_img} />
                   </div>
                 </td>

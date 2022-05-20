@@ -1,6 +1,8 @@
 body {
     margin: 0px;
     padding: 20px;
+    width: 1000px;
+    margin: auto;
     *,
     *:after,
     *:before {
@@ -193,11 +195,12 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 @media print {
-    // @page {
-    //     size: landscape;
-    // }
+    @page {
+        size: landscape;
+    }
     // body {
-    //     border: 1px solid red;
+    //     width: 1000px;
+    //     margin: auto;
     // }
     .btn.add_btn,
     #gantt_table,
@@ -206,5 +209,12 @@ input[type="number"] {
         height: 0;
         overflow: hidden;
         visibility: hidden !important;
+    }
+}
+.gantt_chart {
+    padding: 10px;
+    margin-top: 30px;
+    [id*="reactgooglegraph"] > div {
+        margin: auto;
     }
 }
